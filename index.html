@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSKeyword | Secure Data Protocol</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="bg-particles"></canvas>
+<div class="overlay"></div>
+
+<header>
+    <div class="container header-content">
+        <div class="logo">
+            <div class="logo-icon">TS</div>
+            <span>KEYWORD</span>
+        </div>
+        
+        <nav class="desktop-nav">
+            <a onclick="showPage('home')" class="nav-link active">Головна</a>
+            <a onclick="showPage('encode')" class="nav-link">Генерація</a>
+            <a onclick="showPage('decode')" class="nav-link">Декодер</a>
+        </nav>
+
+        <div class="header-controls">
+            <button class="theme-toggle" aria-label="Змінити тему">
+                <svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <div class="burger" onclick="toggleMenu()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a onclick="showPage('home')">Головна</a>
+    <a onclick="showPage('encode')">Генерація</a>
+    <a onclick="showPage('decode')">Декодер</a>
+</div>
+
+<main>
+    <section id="home" class="page active">
+        <div class="hero-section">
+            <div class="hero-content fade-in-up">
+                <div class="badge">v2.4 STABLE</div>
+                <h1>Протокол стиснення<br>нового покоління</h1>
+                <p class="hero-text">
+                    TSKeyword трансформує великі масиви даних у компактні цифрові токени. 
+                    Без хмарного зберігання. Без втрати приватності. 
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="showPage('encode')">Почати роботу</button>
+                    <button class="btn-secondary" onclick="scrollToDetails()">Дізнатись більше</button>
+                </div>
+            </div>
+            <div class="hero-visual fade-in-up delay-200">
+                <div class="abstract-card">
+                    <div class="code-lines">
+                        <span class="c-gray">// Input Stream</span>
+                        <span class="c-blue">const</span> <span class="c-purple">data</span> = <span class="c-green">"User_Profile_v1"</span>;
+                        <span class="c-blue">await</span> <span class="c-yellow">Compress</span>(data);
+                        <span class="c-gray">// Output</span>
+                        <span class="c-green">"1721...240"</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="details" class="features-grid">
+            <div class="feature-card reveal">
+                <div class="icon-box">⚡</div>
+                <h3>LZ-String Алгоритм</h3>
+                <p>Використання бінарного стиснення дозволяє вмістити до 40% більше тексту в стандартний QR-код.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="icon-box">🔒</div>
+                <h3>Zero-Knowledge</h3>
+                <p>Всі обчислення відбуваються у вашому браузері. Ми не передаємо дані на сервер.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="icon-box">📱</div>
+                <h3>Універсальність</h3>
+                <p>Результат — це простий числовий токен або зображення, сумісне з будь-яким сканером.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="encode" class="page">
+        <div class="app-container fade-in-up">
+            <div class="app-header">
+                <h2>Генератор ключа</h2>
+                <p>Заповніть форму для створення стиснутого цифрового відбитка.</p>
+            </div>
+            
+            <div class="form-grid">
+                <div class="input-group">
+                    <label>Персональні дані</label>
+                    <input id="name" placeholder="ПІБ">
+                    <input id="phone" placeholder="Телефон">
+                    <input id="email" placeholder="Email">
+                </div>
+                <div class="input-group">
+                    <label>Додаткова інформація</label>
+                    <textarea id="message" placeholder="Введіть текст анкети або примітки..." rows="6"></textarea>
+                </div>
+            </div>
+
+            <div id="error" class="alert-box error hidden"></div>
+            
+            <div class="actions">
+                <button class="btn-primary full-width" onclick="generate()">
+                    <span class="btn-text">Згенерувати токен</span>
+                    <div class="loader hidden"></div>
+                </button>
+            </div>
+
+            <div id="result-container" class="result-panel hidden">
+                <div class="panel-row">
+                    <div class="code-block">
+                        <label>ЦИФРОВИЙ КЛЮЧ</label>
+                        <div class="code-content" id="encoded">Loading...</div>
+                        <button class="copy-btn" onclick="copyKeyword()">Копіювати</button>
+                    </div>
+                    <div class="qr-block">
+                        <label>QR SCAN</label>
+                        <div id="qrcode"></div>
+                        <button class="download-link" onclick="downloadQR()">Завантажити PNG</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="decode" class="page">
+        <div class="app-container fade-in-up">
+             <div class="app-header">
+                <h2>Дешифратор</h2>
+                <p>Введіть числовий ключ або завантажте зображення QR-коду.</p>
+            </div>
+
+            <div class="decode-input-area">
+                <input id="inputDecode" placeholder="Вставте довгий числовий код сюди...">
+                <center><button class="btn-primary" style="margin: 15px;" onclick="decode()">Розшифрувати</button></center>
+            </div>
+
+            <div class="divider"><span>АБО</span></div>
+
+            <div class="upload-zone">
+                <input type="file" id="file-qr" accept="image/*" onchange="decodeQR(this)">
+                <label for="file-qr">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    <span>Натисніть для завантаження QR</span>
+                    <small>Підтримуються JPG, PNG</small>
+                </label>
+            </div>
+
+            <div id="decoded" class="result-display hidden"></div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container footer-content">
+        <div class="footer-col">
+            <h4>TSKeyword</h4>
+            <p>© 2026. Secure Compression Protocol.</p>
+        </div>
+        <div class="footer-col right">
+            <a href="#">Документація</a>
+            <a href="#">API</a>
+            <a href="#">Підтримка</a>
+        </div>
+    </div>
+</footer>
+
+<canvas id="verifyCanvas" style="display:none;"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
