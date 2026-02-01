@@ -257,7 +257,7 @@ function decode(customVal = null) {
         `;
         resDiv.classList.remove("hidden");
     } catch(e) { 
-        resDiv.innerHTML = "<span style='color:#ef4444'>❌ Невірний формат даних або пошкоджений ключ</span>";
+        resDiv.innerHTML = "<span style='color:#ef4444'> ✖ Невірний формат даних або пошкоджений ключ</span>";
         resDiv.classList.remove("hidden");
     }
 }

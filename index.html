@@ -25,6 +25,7 @@
             <a onclick="showPage('home')" class="nav-link active">Головна</a>
             <a onclick="showPage('encode')" class="nav-link">Генерація</a>
             <a onclick="showPage('decode')" class="nav-link">Декодер</a>
+            <a onclick="showPage('market')" class="nav-link" id="primary">Магазин готових анкет</a>
         </nav>
 
         <div class="header-controls">
@@ -43,6 +44,7 @@
     <a onclick="showPage('home')">Головна</a>
     <a onclick="showPage('encode')">Генерація</a>
     <a onclick="showPage('decode')">Декодер</a>
+    <a onclick="showPage('market')" id="primary">Магазин готових анкет</a>
 </div>
 
 <main>
@@ -75,17 +77,28 @@
 
         <div id="details" class="features-grid">
             <div class="feature-card reveal">
-                <div class="icon-box">⚡</div>
+                <div class="icon-box"><svg width="64" height="64" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" stroke="#9CA3AF" stroke-width="2" fill="none"/>
+                  </svg>
+                  </div>
                 <h3>LZ-String Алгоритм</h3>
                 <p>Використання бінарного стиснення дозволяє вмістити до 40% більше тексту в стандартний QR-код.</p>
             </div>
             <div class="feature-card reveal">
-                <div class="icon-box">🔒</div>
+                <div class="icon-box"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="10" width="14" height="10" rx="2" stroke="#9CA3AF" stroke-width="2"/>
+                    <path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="#9CA3AF" stroke-width="2"/>
+                  </svg>
+                  </div>
                 <h3>Zero-Knowledge</h3>
                 <p>Всі обчислення відбуваються у вашому браузері. Ми не передаємо дані на сервер.</p>
             </div>
             <div class="feature-card reveal">
-                <div class="icon-box">📱</div>
+                <div class="icon-box"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="7" y="2" width="10" height="20" rx="2" stroke="#9CA3AF" stroke-width="2"/>
+                    <circle cx="12" cy="18" r="1" fill="#9CA3AF"/>
+                  </svg>
+                  </div>
                 <h3>Універсальність</h3>
                 <p>Результат — це простий числовий токен або зображення, сумісне з будь-яким сканером.</p>
             </div>
@@ -164,6 +177,29 @@
             <div id="decoded" class="result-display hidden"></div>
         </div>
     </section>
+
+    <section id="market" class="page">
+        <div class="app-container fade-in-up">
+            <div class="app-header">
+                <h2>Магазин анкет</h2>
+                <p>Оберіть готовий шаблон для швидкого старту.</p>
+            </div>
+
+            <div class="upload-zone" style="cursor: default; border-style: solid; background: transparent;">
+                <div style="padding: 40px; opacity: 0.6; display: flex; flex-direction: column; align-items: center;">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--text-muted); margin-bottom: 20px;">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <h3 style="margin-bottom: 10px; color: var(--text-main);">Розділ у розробці</h3>
+                    <p style="color: var(--text-muted);">Скоро тут з'являться доступні шаблони.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </main>
 
 <footer>
