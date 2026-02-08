@@ -269,7 +269,7 @@ footer {
 .delay-200 { animation-delay: 0.3s; }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 760px) {
     .burger { display: flex; }
     .desktop-nav { display: none; }
     .hero-section { grid-template-columns: 1fr; text-align: center; }
@@ -291,7 +291,7 @@ footer {
     color: #818cf8;
     border-radius: 10px;
     transition: 0.2s;
-}
+}/
 #primary:hover{
     color: var(--accent);
 }
