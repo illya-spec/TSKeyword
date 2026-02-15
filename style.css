@@ -291,7 +291,7 @@ footer {
     color: #818cf8;
     border-radius: 10px;
     transition: 0.2s;
-}/
+}
 #primary:hover{
     color: var(--accent);
 }
@@ -401,4 +401,7 @@ footer {
 .delivery-label {
     font-weight: bold;
     color: var(--text-main);
+}
+.logo :hover{
+    content: "gogo";
 }
