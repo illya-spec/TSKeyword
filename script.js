@@ -65,18 +65,118 @@ themeBtn.addEventListener('click', () => {
 const savedTheme = localStorage.getItem('theme');
 applyTheme(savedTheme === 'light');
 
-/* === ANIMATION OBSERVER === */
-const observer = new IntersectionObserver((entries) => {
+/* === UPDATED SOUND ENGINE === */
+const sfx = {
+    hover: new Audio('sounds/hover.mp3'),
+    click: new Audio('sounds/click.mp3'),
+    success: new Audio('sounds/success.mp3'),
+    isMuted: localStorage.getItem('muted') === 'true' // Запам'ятовуємо вибір користувача
+};
+
+// Функція програвання з перевіркою м'юту
+function triggerSound(name) {
+    if (sfx.isMuted) return; // Якщо м'ют - виходимо
+    
+    const sound = sfx[name];
+    if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(() => {});
+    }
+}
+
+// Функція оновлення вигляду кнопки
+function updateMuteUI() {
+    const btn = document.getElementById('mute-toggle');
+    const iconOn = btn.querySelector('.icon-on');
+    const iconOff = btn.querySelector('.icon-off');
+
+    if (sfx.isMuted) {
+        btn.classList.add('is-muted');
+        iconOn.style.display = 'none';
+        iconOff.style.display = 'block';
+    } else {
+        btn.classList.remove('is-muted');
+        iconOn.style.display = 'block';
+        iconOff.style.display = 'none';
+    }
+}
+
+// Обробник кліку по кнопці м'юту
+document.getElementById('mute-toggle').addEventListener('click', () => {
+    sfx.isMuted = !sfx.isMuted;
+    localStorage.setItem('muted', sfx.isMuted); // Зберігаємо в браузері
+    updateMuteUI();
+});
+
+// Ініціалізація стану при завантаженні
+document.addEventListener('DOMContentLoaded', () => {
+    updateMuteUI();
+    
+    // Додаємо звуки на елементи (делегування)
+    document.addEventListener('mouseover', (e) => {
+        if (e.target.closest('.btn-primary, .card, .nav-link')) triggerSound('hover');
+    });
+    
+    document.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.btn-primary, .card, .nav-link')) triggerSound('click');
+    });
+});
+// Функція для автоматичного додавання звуків на кнопки
+function initUIFeedback() {
+    // Всі кнопки та лінки
+    const interactiveElements = document.querySelectorAll('.btn-primary, .nav-link, .card, .close-modal');
+
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => Sounds.play('hover'));
+        el.addEventListener('click', () => Sounds.play('click'));
+    });
+}
+
+document.getElementById('mute-toggle').addEventListener('click', function() {
+    Sounds.enabled = !Sounds.enabled;
+    this.querySelector('.icon').textContent = Sounds.enabled ? '🔊' : '🔇';
+    this.style.opacity = Sounds.enabled ? '1' : '0.5';
+});
+
+/* === ПОКРАЩЕНА АНІМАЦІЯ ТА ІНТЕРАКТИВ === */
+
+// 1. Покращений Observer для скролу
+const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in-up');
-            entry.target.style.opacity = 1;
+            entry.target.classList.add('reveal-visible');
+            // Вимикаємо спостереження після активації (опціонально)
+            // scrollObserver.unobserve(entry.target);
         }
     });
-}, { threshold: 0.1 });
+}, { threshold: 0.15 });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+// 2. Магнітний ефект для Hero картки
+function initMagneticEffect() {
+    const heroCard = document.querySelector('.abstract-card');
+    if (!heroCard) return;
 
+    heroCard.addEventListener('mousemove', (e) => {
+        const { left, top, width, height } = heroCard.getBoundingClientRect();
+        const x = (e.clientX - left - width / 2) / 15;
+        const y = (e.clientY - top - height / 2) / 15;
+        heroCard.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg) translateY(-5px)`;
+    });
+
+    heroCard.addEventListener('mouseleave', () => {
+        heroCard.style.transform = `perspective(1000px) rotateY(0) rotateX(0) translateY(0)`;
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Ініціалізація скрол-об'єктів
+    document.querySelectorAll('.reveal').forEach(el => {
+        el.classList.add('reveal-hidden');
+        scrollObserver.observe(el);
+    });
+    
+    initMagneticEffect();
+});
 
 /* === BACKGROUND PARTICLES === */
 const canvas = document.getElementById('bg-particles');

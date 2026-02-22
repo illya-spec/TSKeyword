@@ -402,6 +402,90 @@ footer {
     font-weight: bold;
     color: var(--text-main);
 }
-.logo :hover{
-    content: "gogo";
+/* --- Анімації "Життя" --- */
+
+/* Плавне плавання (для іконок або карток) */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+}
+
+/* Легке трясіння (само по собі) */
+@keyframes idle-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px) rotate(-1deg); }
+    75% { transform: translateX(2px) rotate(1deg); }
+}
+
+/* Інтенсивне трясіння при наведенні */
+@keyframes hover-shake {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(2px, 2px) rotate(1deg); }
+    50% { transform: translate(-2px, -1px) rotate(-1deg); }
+    75% { transform: translate(1px, -2px) rotate(1deg); }
+    100% { transform: translate(0,0); }
+}
+
+.float-anim { animation: float 4s ease-in-out infinite; }
+.idle-shake { animation: idle-shake 5s ease-in-out infinite; }
+
+/* Класи для скрол-анімацій */
+.reveal-hidden {
+    opacity: 0;
+    filter: blur(5px);
+    transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
+}
+
+.slide-left { transform: translateX(-50px); }
+.slide-right { transform: translateX(50px); }
+.scale-up { transform: scale(0.9); }
+
+.reveal-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(0, 0) scale(1);
+}
+
+/* Інтерактивні об'єкти */
+.interactive-card {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.interactive-card:hover {
+    animation: hover-shake 0.3s infinite;
+    border-color: var(--accent);
+}
+.mute-btn {
+    bottom: 25px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.mute-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+.mute-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Стан, коли звук вимкнено */
+.mute-btn.is-muted {
+    opacity: 0.6;
+    color: var(--text-muted);
 }
