@@ -100,7 +100,12 @@ function updateMuteUI() {
         iconOff.style.display = 'none';
     }
 }
-
+const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+if (isMobile) {
+    document.querySelectorAll("audio").forEach(audio => {
+        audio.remove();
+    });
+}
 // Обробник кліку по кнопці м'юту
 document.getElementById('mute-toggle').addEventListener('click', () => {
     sfx.isMuted = !sfx.isMuted;
