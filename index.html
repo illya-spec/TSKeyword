@@ -32,6 +32,7 @@
             <a onclick="showPage('encode')" class="nav-link">Генерація</a>
             <a onclick="showPage('decode')" class="nav-link">Декодер</a>
             <a onclick="showPage('market')" class="nav-link" id="primary">Магазин готових анкет</a>
+            
         </nav>
 <button id="mute-toggle" class="mute-btn" title="Ввімкнути/Вимкнути звук">
     <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -42,6 +43,15 @@
     </svg>
 </button>
         <div class="header-controls">
+            <button id="assistant-toggle" class="assistant-toggle" aria-label="Асистент FAQ" onclick="toggleAssistantModal()" title="Швидкий Асистент">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+            <circle cx="8.5" cy="16" r="1.5" fill="currentColor"></circle>
+            <circle cx="15.5" cy="16" r="1.5" fill="currentColor"></circle>
+            <path d="M12 2v5"></path>
+            <circle cx="12" cy="2" r="1"></circle>
+        </svg>
+    </button>
             <button class="theme-toggle" aria-label="Змінити тему">
                 <svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                 <svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -58,6 +68,13 @@
     <a onclick="showPage('encode')">Генерація</a>
     <a onclick="showPage('decode')">Декодер</a>
     <a onclick="showPage('market')" id="primary">Магазин готових анкет</a>
+    <a onclick="toggleAssistantModal(); toggleMenu();" style="color: var(--accent);">         <svg class="svg-in-burger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+            <circle cx="8.5" cy="16" r="1.5" fill="currentColor"></circle>
+            <circle cx="15.5" cy="16" r="1.5" fill="currentColor"></circle>
+            <path d="M12 2v5"></path>
+            <circle cx="12" cy="2" r="1"></circle>
+        </svg>Асистент FAQ</a>
 </div>
 
 <main>
@@ -152,12 +169,12 @@
                     <div class="code-block">
                         <label>ЦИФРОВИЙ КЛЮЧ</label>
                         <div class="code-content" id="encoded">Loading...</div>
-                        <button class="copy-btn" onclick="copyKeyword()">Копіювати</button>
+                        <button class="btn-primary" onclick="copyKeyword()">Копіювати</button>
                     </div>
                     <div class="qr-block">
                         <label>QR SCAN</label>
                         <div id="qrcode"></div>
-                        <button class="download-link" onclick="downloadQR()">Завантажити PNG</button>
+                        <button class="btn-primary" onclick="downloadQR()">Завантажити PNG</button>
                     </div>
                 </div>
             </div>
@@ -235,8 +252,22 @@
 
 <footer>
     <div class="contacts">
-        <p>Keyword of our contacts: <span style="color: #584eac;"> 4367228502042852716922456589 <br> 8545842447608856322837454460957653132902 <br> 3575655163867879728053704006782522125393027 <br> 31477431749526922193545918733122763848883166605089487198303289776537600</span></p>
+        <p style="display: inline-block;">Кейворд наших контакт: </p>
     </div>
+    <button class="copy-btn" data-copy="4367228502042852716922456589
+    8545842447608856322837454460957653132902
+    3575655163867879728053704006782522125393027
+    31477431749526922193545918733122763848883166605089487198303289776537600">
+<!-- SVG 1: Іконка копіювання -->
+    <svg class="icon-copy" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    </svg>
+    <!-- SVG 2: Іконка галочки (прихована за замовчуванням) -->
+    <svg class="icon-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+        <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    </button>
     <div class="container footer-content">
         <div class="footer-col">
             <h4>TSKeyword</h4>
@@ -246,11 +277,53 @@
             <a href="#">Документація</a>
             <a href="#">API</a>
             <a href="support.html">Підтримка</a>
-            <a href="https://forms.gle/WkxTQwjqz88XvM9a7">Заявка на роботу підтримки</a>
         </div>
     </div>
 </footer>
+<!-- МОДАЛЬНЕ ВІКНО АСИСТЕНТА -->
+<div id="assistant-modal" class="modal-overlay">
+    <div class="modal-content assistant-modal-content">
+        <span onclick="toggleAssistantModal()" class="close-modal">&times;</span>
+        
+        <div class="assistant-header">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                <circle cx="8.5" cy="16" r="1.5" fill="var(--accent)"></circle>
+                <circle cx="15.5" cy="16" r="1.5" fill="var(--accent)"></circle>
+                <path d="M12 2v5"></path>
+                <circle cx="12" cy="2" r="1"></circle>
+            </svg>
+            <h3>Швидкий Асистент FAQ</h3>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Оберіть питання зі списку нижче:</p>
+        
+<div class="faq-accordion">
+    <details class="faq-item">
+        <summary>Що це?</summary>
+        <div class="faq-answer">Стиснення даних у токени та QR.</div>
+    </details>
 
+    <details class="faq-item">
+        <summary>Безпечно?</summary>
+        <div class="faq-answer">100%. Усе обробляється в браузері.</div>
+    </details>
+
+    <details class="faq-item">
+        <summary>Як створити?</summary>
+        <div class="faq-answer">Форма в «Генерація» → Кнопка.</div>
+    </details>
+
+    <details class="faq-item">
+        <summary>Як прочитати?</summary>
+        <div class="faq-answer">Встав код/QR у «Декодер».</div>
+    </details>
+
+    <details class="faq-item">
+        <summary>Що в шопі?</summary>
+        <div class="faq-answer">Готові шаблони анкет.</div>
+    </details>
+</div>
+</div>
 <canvas id="verifyCanvas" style="display:none;"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>

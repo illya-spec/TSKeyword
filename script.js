@@ -100,12 +100,7 @@ function updateMuteUI() {
         iconOff.style.display = 'none';
     }
 }
-const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-if (isMobile) {
-    document.querySelectorAll("audio").forEach(audio => {
-        audio.remove();
-    });
-}
+
 // Обробник кліку по кнопці м'юту
 document.getElementById('mute-toggle').addEventListener('click', () => {
     sfx.isMuted = !sfx.isMuted;
@@ -602,4 +597,48 @@ document.addEventListener("DOMContentLoaded", () => {
    if(cartWidget) {
        cartWidget.style.display = (activePage && activePage.id === 'market') ? 'flex' : 'none';
    }
+});
+/* === LOGIC: FAQ ASSISTANT === */
+function toggleAssistantModal() {
+    const modal = document.getElementById('assistant-modal');
+    if (!modal) return;
+    
+    if (modal.style.display === 'flex') {
+        modal.style.display = 'none';
+    } else {
+        modal.style.display = 'flex';
+        if (typeof triggerSound === 'function') {
+            triggerSound('click');
+        }
+    }
+}
+
+// Закриття асистента при кліку на затемнений фон
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('assistant-modal');
+    if (e.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+
+    const textToCopy = btn.dataset.copy;
+    if (!textToCopy) return;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        // Додаємо клас, який ховає іконку копіювання та показує галочку
+        btn.classList.add('copied');
+
+        // Звуковий відгук (якщо є функція triggerSound)
+        if (typeof triggerSound === 'function') {
+            triggerSound('click');
+        }
+
+        // Повертаємо початкову іконку через 1.5 секунди
+        setTimeout(() => {
+            btn.classList.remove('copied');
+        }, 1500);
+    }).catch(err => console.error('Помилка копіювання:', err));
 });
