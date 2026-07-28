@@ -390,23 +390,23 @@ function decodeQR(input) {
     reader.readAsDataURL(file);
 }
 
-function copyKeyword() {
-    const text = document.getElementById("encoded").textContent;
+function copyKeyword(btnElement) {
+    const textEl = document.getElementById("encoded");
+    if (!textEl) return;
+    
+    const text = textEl.textContent;
     navigator.clipboard.writeText(text);
-    const btn = document.querySelector('.copy-btn');
+
+    // Беремо саме таку кнопку, на яку натиснули (або шукаємо в блоці результату)
+    const btn = btnElement || document.querySelector('#result-container .code-block .btn-primary');
+    if (!btn) return;
+
     const originalText = btn.textContent;
     btn.textContent = "Скопійовано!";
-    setTimeout(() => btn.textContent = originalText, 2000);
-}
 
-function downloadQR() {
-    const img = document.querySelector("#qrcode img");
-    if (img) {
-        const link = document.createElement("a");
-        link.href = img.src;
-        link.download = "ts-key-secure.png";
-        link.click();
-    }
+    setTimeout(() => {
+        btn.textContent = originalText;
+    }, 2000);
 }
 
 /* === CART SYSTEM & DELIVERY LOGIC === */
